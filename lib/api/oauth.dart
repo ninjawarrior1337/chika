@@ -13,6 +13,7 @@ class RedditClient
 {
   Reddit reddit;
   File credsFile;
+  Redditor me;
 
   static final RedditClient _singleton = RedditClient._internal();
 
@@ -25,6 +26,10 @@ class RedditClient
   Future<void> setup() async {
     await setupCreds();
     setupAuth();
+  }
+
+  setMe() async {
+    me = await reddit.user.me();
   }
 
   void setupAuth()

@@ -1,10 +1,8 @@
-import 'package:chika/main.dart';
-import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImageViewer extends StatelessWidget {
-  String imageUrl;
+  final String imageUrl;
   ImageViewer(this.imageUrl);
 
   @override

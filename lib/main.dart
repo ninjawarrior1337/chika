@@ -76,6 +76,7 @@ class LoginState extends State<Login> {
           setState(() {});
           RedditClient().saveCreds();
           Navigator.pushReplacementNamed(context, "/frontpage");
+          RedditClient().setMe();
         }
         else {
           flutterWebViewPlugin.close();
@@ -84,6 +85,7 @@ class LoginState extends State<Login> {
     }
     else {
       Navigator.pushReplacementNamed(context, "/frontpage");
+      RedditClient().setMe();
     }
   }
 
