@@ -29,6 +29,7 @@ class ImageViewer extends StatelessWidget {
                     color: Colors.black87,
                     child: Center(
                       child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.blue[900]),
                         backgroundColor: Colors.blue,
                       ),
                     ),

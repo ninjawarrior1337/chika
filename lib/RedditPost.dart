@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
+import 'dart:ui' as prefix0;
+import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chika/ImageViewer.dart';
@@ -101,8 +103,19 @@ class RedditPostState extends State<RedditPost> {
                 unescape.convert(widget.submission.title),
                 textAlign: TextAlign.start,
                 style: TextStyle(
+                  color: widget.submission.stickied ? Colors.greenAccent[700] : Colors.white,
                   fontSize: 20,
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: <Widget>[
+                  widget.submission.over18 ? Text(" NSFW ", style: TextStyle(backgroundColor: Colors.red),) : Container(),
+                  widget.submission.stickied ? Text(" STICKY ", style: TextStyle(backgroundColor: Colors.greenAccent),) : Container(),
+                  widget.submission.url.toString().contains("gif") ? Text(" GIF ", style: TextStyle(backgroundColor: Colors.blueAccent),) : Container()
+                ],
               ),
             ),
             Padding(
@@ -116,7 +129,7 @@ class RedditPostState extends State<RedditPost> {
                     "r/"+widget.submission.subreddit.displayName,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Colors.orange[600]
+                        color: Theme.of(context).primaryColor
                     ),
                   ),
                 ),
@@ -131,24 +144,24 @@ class RedditPostState extends State<RedditPost> {
                   else
                     launch(widget.submission.url.toString());
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Hero(
-                    tag: widget.submission.url.toString(),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.submission.preview.first.resolutions.last.url.toString(),
-                      placeholder: (ctx, url) => Stack(
-                        children: <Widget>[
-                          Image.memory(
-                              kTransparentImage,
-                              height: 200,
-                          ),
-                          Center(
-                              child: CircularProgressIndicator()
-                          )
-                        ],
-                      ),
-                    )
+                child: Hero(
+                  tag: widget.submission.url.toString(),
+                  child: widget.submission.over18 ?
+                    Image.asset("assets/nsfw.jpg")
+                    :
+                    CachedNetworkImage(
+                    imageUrl: widget.submission.preview.first.resolutions.last.url.toString(),
+                    placeholder: (ctx, url) => Stack(
+                      children: <Widget>[
+                        Image.memory(
+                            kTransparentImage,
+                            height: 200,
+                        ),
+                        Center(
+                            child: CircularProgressIndicator()
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -25,11 +25,13 @@ class App extends StatelessWidget{
       },
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
-        primaryColor: Colors.orange,
+        primaryColor: Colors.orange[600],
+        accentColor: Colors.orange[800],
         brightness: Brightness.dark
       ),
       theme: ThemeData(
         primaryColor: Colors.orange[600],
+        accentColor: Colors.orange[800],
         brightness: Brightness.light
       ),
     );
@@ -75,8 +77,8 @@ class LoginState extends State<Login> {
           }
           setState(() {});
           RedditClient().saveCreds();
+          await RedditClient().setMe();
           Navigator.pushReplacementNamed(context, "/frontpage");
-          RedditClient().setMe();
         }
         else {
           flutterWebViewPlugin.close();
@@ -84,8 +86,8 @@ class LoginState extends State<Login> {
       });
     }
     else {
+      await RedditClient().setMe();
       Navigator.pushReplacementNamed(context, "/frontpage");
-      RedditClient().setMe();
     }
   }
 
@@ -112,7 +114,7 @@ class LoginState extends State<Login> {
       body: Center(
         child: MaterialButton(
           onPressed: () => _doOauth(),
-          color: Colors.orange[600],
+          color: Theme.of(context).primaryColor,
           child: FutureBuilder(
               future: reddit.user.me(),
               builder: (ctx, AsyncSnapshot<Redditor> snapshot) {

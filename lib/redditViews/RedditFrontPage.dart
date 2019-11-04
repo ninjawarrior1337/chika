@@ -73,8 +73,8 @@ class RedditFrontPage extends StatelessWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          Colors.orange[800],
-                          Colors.orange[500],
+                          Theme.of(context).primaryColor,
+                          Theme.of(context).accentColor,
                         ],
                       )
                   ),
@@ -103,7 +103,7 @@ class RedditFrontPage extends StatelessWidget {
                         child: Text(
                             RedditClient().me.displayName,
                             style: TextStyle(
-                                fontSize: 20
+                                fontSize: 20,
                             )
                         ),
                       ),
